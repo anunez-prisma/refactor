@@ -1,0 +1,11 @@
+# Directorios_y_Dependencias
+node_modules/
+.idea/
+videos/
+screenshots/
+reports/
+results/
+/node_modules/
+/cypress/videos/
+/cypress/screenshots/
+/.idea/

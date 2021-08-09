@@ -1,0 +1,9 @@
+{
+  "testFiles": "**/*.{feature,features}",
+  "ignoreTestFiles": ["**/stepDefinitions/*","*.js", "*.md"],
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportFilename": "test-report",
+    "overwrite": false
+  }
+}
