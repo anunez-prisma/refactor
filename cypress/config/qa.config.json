@@ -1,3 +1,5 @@
 {
-  "baseUrl":"https://www.google.com"
+  "env": {
+    "baseUrl":"https://www.google.com"
+  }
 }

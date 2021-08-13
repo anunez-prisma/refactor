@@ -1,9 +1,12 @@
 {
+  "projectId": "d8tu85",
   "testFiles": "**/*.{feature,features}",
   "ignoreTestFiles": ["**/stepDefinitions/*","*.js", "*.md"],
   "reporter": "mochawesome",
   "reporterOptions": {
     "reportFilename": "test-report",
     "overwrite": false
-  }
+  },
+  "chromeWebSecurity": false,
+  "pageLoadTimeout": 80000
 }

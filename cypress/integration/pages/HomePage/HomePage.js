@@ -6,7 +6,7 @@ class HomePage {
   }
 
   typeInSearchTxtBox(value) {
-    return cy.get(elements.HOMEPAGE.SEARCH_TXTBOX_XPATH).type(value);
+    return cy.get(elements.HOMEPAGE.SEARCH_TXTBOX).type(value);
   }
 
   submitSearchQuery() {

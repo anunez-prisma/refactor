@@ -19,8 +19,32 @@
 const fs = require('fs-extra');
 const path = require('path');
 const cucumber = require('cypress-cucumber-preprocessor').default;
+const sqlServer = require('cypress-sql-server');
+const dataBaseEnv = require('./dataBaseEnv');
+
 module.exports = (on, config) => {
   on('file:preprocessor', cucumber());
+  const CSVTask = { 
+    getCSVData (data) {
+        return new Promise((resolve) => {
+            var lines=data.split("\n");
+            var result = [];
+                var headers=lines[0].split(",");
+                for(var i=1;i<lines.length;i++){
+    
+                    var obj = {};
+                    var currentline=lines[i].split(",");
+    
+                    for(var j=0;j<headers.length;j++){
+                        obj[headers[j]] = currentline[j];
+                    }
+                    result.push(obj);
+                }
+            resolve(result)
+        });
+    }
+}
+  on('task', CSVTask);
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   function getConfigurationByFile(env) {
@@ -30,6 +54,8 @@ module.exports = (on, config) => {
   }
   //if no environment is provided, then PR env will be default
   const env = config.env.configFile || "qa";
+  on('task', sqlServer.loadDBPlugin(dataBaseEnv.get("db", env)));
 
   return getConfigurationByFile(env);
 };
+

@@ -6,7 +6,7 @@ const resultPage = new ResultPage();
 
 //glue code for steps
 Given('I open the google web url', () => {
-    cy.visit('/'); // Para el uso de archivos de config se reemplaza la URL por '/' cy.visit('https://www.google.com');
+    cy.visit(Cypress.env('baseUrl')); // Para el uso de archivos de config se reemplaza la URL por '/' cy.visit('https://www.google.com');
 });
 
 Then( 'I verify title of the web page as {string}', (title) => {
@@ -14,7 +14,7 @@ Then( 'I verify title of the web page as {string}', (title) => {
 });
 
 Given('I open the Google web url', () => {
-    cy.visit('https://www.google.com');
+    cy.visit(Cypress.env('baseUrl'));
 
   });
 

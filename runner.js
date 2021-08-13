@@ -69,7 +69,7 @@ const finalReport = {
 }
 
 //Cypree Module API
-cypress.run({
+cypress.open({
     ...args,
     config: {
         pageLoadTimeout: 10000,

@@ -23,7 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import sqlServer from 'cypress-sql-server';
 const addContext = require('mochawesome/addContext');
+
+sqlServer.loadDBCommands();
 
 Cypress.Commands.add('text', { prevSubject: true }, (subject, options) => { return subject.text();
 });

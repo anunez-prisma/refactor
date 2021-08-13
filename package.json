@@ -23,6 +23,7 @@
     "nonGlobalStepDefinitions": true
   },
   "dependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "cypress-sql-server": "^1.0.0"
   }
 }

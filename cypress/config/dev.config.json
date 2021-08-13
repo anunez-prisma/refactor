@@ -1,3 +1,19 @@
 {
-  "baseUrl":"https://www.google.com"
+  "env": {
+    "baseUrl":"https://www.google.com",
+    "prismaUrl":"https://portal-tp-qa.prismamp.com/web-app/login",
+    "urlApiLogin": "http://apis-internal-tp-qa.prismamp.com/oauth2/private/v1/token",
+    "query": "SELECT UC.email,C.id_tipo_cuenta,C.id_estado_cuenta,C.id_canal,C.id_tipo_identificacion,UC.ultima_modificacion_password, uc.denominacion1 as Nombre,uc.denominacion2 as Apellido,uc.email as Mail,c.numero_identificacion as DNI,c.sexo as Genero,FORMAT(c.fecha_nacimiento,'dd/MM/yyyy') as 'Fecha de nacimiento',n.nombre as Nacionalidad,SUBSTRING (c.telefono_movil, 7, 9) as Celular,ac.actividad_declarada as Actividad, uc.id_cuenta FROM Configurations.dbo.Usuario_Cuenta UC INNER JOIN Configurations.dbo.Cuenta C INNER JOIN configurations..Actividad_Cuenta ac on (c.id_cuenta = ac.id_cuenta) INNER JOIN Configurations..Nacionalidad n on (c.id_nacionalidad = n.id_nacionalidad) ON UC.id_cuenta = C.id_cuenta AND C.id_tipo_cuenta = 29 AND C.id_estado_cuenta = 4 AND UC.email LIKE '%@robot.com' AND UC.password = '3f1b82a53d0720f9779e671a7f26ce92' AND UC.ultima_modificacion_password BETWEEN DATEADD(MM, -11, DATEDIFF(dd, 0, GETDATE())) AND DATEADD(ss, -1, DATEADD(dd, 1, DATEDIFF(dd, 0, GETDATE()))) ORDER BY NEWID();",
+    "db": {
+      "userName": "Usr_Pentaho",
+      "password": "@Usr_Pentaho@",
+      "server": "192.168.77.23",
+      "port": "1433",
+      "options": {
+          "database": "master",
+          "encrypt": true,
+          "rowCollectionOnRequestCompletion" : true
+      }
+    }
+  }
 }
