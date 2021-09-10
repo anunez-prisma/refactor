@@ -21,11 +21,11 @@ const path = require('path');
 const cucumber = require('cypress-cucumber-preprocessor').default;
 const sqlServer = require('cypress-sql-server');
 const dataBaseEnv = require('./dataBaseEnv');
-//const registerReportPortalPlugin = require('@reportportal/agent-js-cypress/lib/plugin');
+const registerReportPortalPlugin = require('@reportportal/agent-js-cypress/lib/plugin');
 //module.exports = (on, config) => registerReportPortalPlugin(on, config);
 
 module.exports = (on, config) => {
-    //registerReportPortalPlugin(on, config);
+registerReportPortalPlugin(on, config);
   on('file:preprocessor', cucumber());
   const CSVTask = { 
     getCSVData (data) {

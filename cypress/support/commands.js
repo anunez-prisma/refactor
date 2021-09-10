@@ -26,7 +26,7 @@
 import sqlServer from 'cypress-sql-server';
 import keywords from './keywords';
 const addContext = require('mochawesome/addContext');
-//require('@reportportal/agent-js-cypress/lib/commands/reportPortalCommands');
+require('@reportportal/agent-js-cypress/lib/commands/reportPortalCommands');
 
 sqlServer.loadDBCommands();
 keywords.loadKeyWords();

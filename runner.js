@@ -92,7 +92,7 @@ if(args.cypress == 'open'){
             video: true,
             videosFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/videos'
         },
-        /*"reporter": "cypress-multi-reporters",
+        "reporter": "cypress-multi-reporters",
         "reporterOptions": {
             "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
             "mochawesomeReporterOptions": {
@@ -128,8 +128,8 @@ if(args.cypress == 'open'){
                 "supportFile": "cypress/support/index.js",
                 "pluginsFile": "cypress/plugins/index.js"
             }
-        }*/
-        //reportOptions = {
+        }
+        /*reportOptions = {
             reporter: 'mochawesome',
             reporterOptions: {
                 reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
@@ -137,7 +137,7 @@ if(args.cypress == 'open'){
                 html: true,
                 json: true
             }
-        //}
+        }*/
 
     }).then(result => {
     
