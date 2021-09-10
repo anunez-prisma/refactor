@@ -1,0 +1,47 @@
+{
+    "type": "QRADQ",
+    "operation": "payment",
+    "amount": 10,
+    "cuit": "30-71038088-7",
+    "installments": 1,
+    "terminal_number": "12312312",
+    "merchant_alias": "TODO PAGO",
+    "establishments": [
+      {
+        "id": "03659307",
+        "type": "VISA",
+        "ticket_number": "131",
+        "trace_number": "1332"
+      },
+      {
+        "id": "41662941",
+        "type": "MASTERCARD",
+        "ticket_number": "342",
+        "trace_number": "54335"
+      },
+      {
+        "id": "33442201",
+        "type": "CABAL",
+        "ticket_number": "32523",
+        "trace_number": "54335"
+      },
+      {
+        "id": "33442201",
+        "type": "LA_VOZ",
+        "ticket_number": "32523",
+        "trace_number": "54335"
+      },
+      {
+        "id": "33442202",
+        "type": "LOS_ANDES",
+        "ticket_number": "32523",
+        "trace_number": "54335"
+      },
+      {
+        "id": "33442203",
+        "type": "CLARIN",
+        "ticket_number": "32523",
+        "trace_number": "54335"
+      }
+    ]
+}

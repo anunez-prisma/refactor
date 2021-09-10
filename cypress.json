@@ -1,7 +1,7 @@
 {
   "projectId": "d8tu85",
   "testFiles": "**/*.{feature,features}",
-  "ignoreTestFiles": ["**/stepDefinitions/*","*.js", "*.md"],
+  "ignoreTestFiles": ["**/stepDefinitions/*","*.js", "*.md", "*.ts"],
   "reporter": "mochawesome",
   "reporterOptions": {
     "reportFilename": "test-report",

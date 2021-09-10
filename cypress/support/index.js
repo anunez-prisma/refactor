@@ -13,19 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-//import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
 import './commands'
 const moment = require('moment')
 require('cypress-xpath')
 const addContext = require('mochawesome/addContext');
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 beforeEach(function () {
   cy.log('Test run started on : ' + new moment().format('DD-MM-YYYY HH:mm:ss'));

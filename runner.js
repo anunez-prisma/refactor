@@ -7,7 +7,7 @@ const moment = require('moment')
 const currRunTimestamp = getTimeStamp();
 
 //Get cypress CLI options using 'minimist
-const args = require('minimist')(process.argv.slice(3));
+const args = require('minimist')(process.argv.slice(2));
 
 //mechanism to identify which environment is being used
 //get environment from args..
@@ -27,7 +27,7 @@ function getEnvironment(args){
     }
 
   const getEnv = args.env.split(",");
-
+  console.log(args.cypress)
   getEnv.map((curr, index) => {
 
     const envProperty = curr.split("=");
@@ -68,44 +68,99 @@ const finalReport = {
     reportPageTitle: 'Run-Report'
 }
 
+let reportOptions;                                                                                        ;
+
+console.log(args.reporter);
+
+if(args.reporter == 'reportPortal'){
+
+}else{
+    
+}
+
 //Cypree Module API
-cypress.run({
-    ...args,
-    config: {
-        pageLoadTimeout: 10000,
-        screenshotsFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/screenshots',
-        video: true,
-        videosFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/videos'
-    },
-    reporter: 'mochawesome',
-    reporterOptions: {
-        reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
-        overwrite: false,
-        html: true,
-        json: true
-    }
-}).then(result => {
-
-    // generate a unified report, once Cypress test run is done
-    generateReport()
-    .then(() => {
-        console.log("All Reports merged");
+if(args.cypress == 'open'){
+    cypress.open({
+        ...args
     })
+}else{
+    cypress.run({
+        ...args,
+        config: {
+            pageLoadTimeout: 10000,
+            screenshotsFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/screenshots',
+            video: true,
+            videosFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/videos'
+        },
+        /*"reporter": "cypress-multi-reporters",
+        "reporterOptions": {
+            "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
+            "mochawesomeReporterOptions": {
+                "reportDir": 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
+                "quite": true,
+                "overwrite": false,
+                "html": true,
+                "json": true
+            },
+            "reportportalAgentJsCypressReporterOptions": {
+                "reporter": "@reportportal/agent-js-cypress",
+                "reporterOptions": {
+                    "endpoint": "http://192.168.76.114:8080",
+                    "token": "0111d481-b833-43a9-868d-9763098bf314",
+                    "launch": "superadmin_TEST_EXAMPLE",
+                    "project": "cypress_poc",
+                    "description": "Ejemplo de report portal con cypress"
+                },
+                "reportHooks": true,
+                "autoMerge": true,
+                "attributes": [
+                {
+                    "key": "attributeKey",
+                    "value": "attrbiuteValue"
+                },
+                {
+                    "value": "secondAttrbiuteValue"
+                }
+                ],
+                "integrationFolder": "cypress/integration",
+                "screenshotsFolder": 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + 'screenshots',
+                "fixturesFolder": "cypress/fixtures",
+                "supportFile": "cypress/support/index.js",
+                "pluginsFile": "cypress/plugins/index.js"
+            }
+        }*/
+        //reportOptions = {
+            reporter: 'mochawesome',
+            reporterOptions: {
+                reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
+                overwrite: false,
+                html: true,
+                json: true
+            }
+        //}
+
+    }).then(result => {
+    
+        // generate a unified report, once Cypress test run is done
+            generateReport()
+            .then(() => {
+                console.log("All Reports merged");
+            })
+            .catch(err => {
+                console.error("Getting error while merging reports: ", err.message)
+        
+            })
+            .finally(() => {
+                console.log("Test Run Completed");
+               // process.exit()
+              })
+    })   
     .catch(err => {
-        console.error("Getting error while merging reports: ", err.message)
-
-    })
-    .finally(() => {
-        console.log("Test Run Completed");
-       // process.exit()
+        generateReport()
+        console.error(err.message)
+        process.exit(1)
       })
-
-    })
-.catch(err => {
-    generateReport()
-    console.error(err.message)
-    process.exit(1)
-  })
+}
 
 //get current timestamp
 function getTimeStamp() {

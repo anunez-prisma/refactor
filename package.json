@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open:dev": "node runner.js --cypress open --env configFile=dev",
+    "cy:open:dev:specific": "node runner.js --cypress open --env configFile=dev,TAGS='@TEST-ID_71398'"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,11 @@
     "nonGlobalStepDefinitions": true
   },
   "dependencies": {
+    "@reportportal/agent-js-cypress": "^5.0.2",
+    "cypress-multi-reporters": "^1.5.0",
+    "cypress-sql-server": "^1.0.0",
     "moment": "^2.29.1",
-    "cypress-sql-server": "^1.0.0"
+    "numeral": "^2.0.6",
+    "string-format": "^2.0.0"
   }
 }

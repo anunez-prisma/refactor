@@ -1,13 +1,49 @@
-@UI @feature-login @full
+@UI @feature-login @full @UI
 Feature: Login
 
   Se requiere hacer login desde el portal de Prisma
 
-  @login @TC-0001
-  Scenario Outline: Login exitoso desde el portal de prisma
-    Given Yo abro la pagina de login de Prisma
-    Then Realizo login con el email "<user>" y el password "<password>"
-    Examples:
-      | id | testSetId | user                         | password   | channel | escenario   | habilitado |
-      | 1  | 0         | usuariobilletera01@robot.com | Prisma2015 | 1       | WS_LOGIN_OK | Si         |
-      | 2  | 0         | usuariobilletera01@robot.com | Prisma2015 | 1       | WS_LOGIN_OK | Si         |
+  @TEST-ID_71388 @Prueba
+  Scenario: Login Exitoso
+    Given Ingreso al portal Todo Pago
+    When Selecciono una cuenta de tipo "29"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    Then Puedo loguearme a la cuenta
+
+  @TEST-ID_71389 @Prueba
+  Scenario: Login Exitoso
+    Given Ingreso al portal Todo Pago
+    When Selecciono una cuenta de tipo "27"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    Then Puedo loguearme a la cuenta
+
+  @TEST-ID_71390 @Prueba
+  Scenario: Login Exitoso
+    Given Ingreso al portal Todo Pago
+    When Selecciono una cuenta de tipo "28"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    Then Puedo loguearme a la cuenta
+
+  @TEST-ID_72085
+  Scenario: Logout Exitoso
+    Given Ingreso al portal Todo Pago
+    And Selecciono una cuenta de tipo "27"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    When El usuario hace click sobre el modal de Logout
+    Then Se genera el logout y se redirecciona al usuario a la pantalla de login
+
+  @TEST-ID_72086
+  Scenario: Logout Exitoso
+    Given Ingreso al portal Todo Pago
+    And Selecciono una cuenta de tipo "28"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    When El usuario hace click sobre el modal de Logout
+    Then Se genera el logout y se redirecciona al usuario a la pantalla de login
+
+  @TEST-ID_72087
+  Scenario: Logout Exitoso
+    Given Ingreso al portal Todo Pago
+    And Selecciono una cuenta de tipo "29"
+    And El usuario se loguea al nuevo portal con la contraseña "Prisma2015"
+    When El usuario hace click sobre el modal de Logout
+    Then Se genera el logout y se redirecciona al usuario a la pantalla de login

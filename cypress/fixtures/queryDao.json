@@ -1,0 +1,31 @@
+{
+    "UserStatement" : {
+        "userInfo" : "SELECT TOP 1 UC.email,C.id_tipo_cuenta,C.id_estado_cuenta,C.id_canal,C.id_tipo_identificacion,UC.ultima_modificacion_password, uc.denominacion1 as Nombre,uc.denominacion2 as Apellido,uc.email as Mail,c.numero_identificacion as DNI,c.sexo as Genero,FORMAT(c.fecha_nacimiento,'dd/MM/yyyy') as 'Fecha de nacimiento',n.nombre as Nacionalidad,SUBSTRING (c.telefono_movil, 7, 9) as Celular,ac.actividad_declarada as Actividad, uc.id_cuenta FROM Configurations.dbo.Usuario_Cuenta UC INNER JOIN Configurations.dbo.Cuenta C INNER JOIN configurations..Actividad_Cuenta ac on (c.id_cuenta = ac.id_cuenta) INNER JOIN Configurations..Nacionalidad n on (c.id_nacionalidad = n.id_nacionalidad) ON UC.id_cuenta = C.id_cuenta AND C.id_tipo_cuenta = {0} AND C.id_estado_cuenta = 4 AND UC.email LIKE '%@robot.com' AND UC.password = '3f1b82a53d0720f9779e671a7f26ce92' AND UC.ultima_modificacion_password BETWEEN DATEADD(MM, -11, DATEDIFF(dd, 0, GETDATE())) AND DATEADD(ss, -1, DATEADD(dd, 1, DATEDIFF(dd, 0, GETDATE()))) ORDER BY NEWID();",
+        "denominationByEmail" : "SELECT c.denominacion1,c.denominacion2 FROM Configurations.dbo.Usuario_Cuenta uc inner join Configurations.dbo.Cuenta c on uc.id_cuenta=c.id_cuenta WHERE email = '{0}'",
+        "userInfoByTypeUser" : {
+            "query" : "SELECT TOP 1 uc.email,c.id_cuenta,cv.saldo_en_cuenta,cv.saldo_en_revision,cv.disponible FROM Configurations..Cuenta_virtual as cv INNER JOIN Configurations..Cuenta as c ON (c.id_cuenta = cv.id_cuenta) INNER JOIN Configurations..Usuario_Cuenta as uc ON (uc.id_cuenta = c.id_cuenta) WHERE uc.password = '3f1b82a53d0720f9779e671a7f26ce92' AND c.id_estado_cuenta = 4 {0} {1} {2}",
+            "disponible" : {
+                "true" : "AND cv.disponible != 0 AND cv.disponible <999999999",
+                "mayor a un millon" : "AND cv.disponible > 1000000",
+                "false": "AND cv.disponible = 0"
+            },
+            "revision" : {
+                "true" : "AND cv.saldo_en_revision != 0",
+                "mayor a un millon" : "AND cv.saldo_en_revision > 1000000",
+                "false": "AND cv.saldo_en_revision = 0"
+            },
+            "tipoCuenta" : {
+                "persona" : "AND c.id_tipo_cuenta in (27, 28)",
+                "empresa" : "AND c.id_tipo_cuenta in (29)",
+                "search" : ""
+            }
+        },
+        "userInfoWithMovements" : {
+            "query" : "SELECT TOP 1 uc.email,c.id_cuenta FROM Configurations..Cuenta as c INNER JOIN Configurations..Usuario_Cuenta as uc ON (uc.id_cuenta = c.id_cuenta) WHERE uc.password = '3f1b82a53d0720f9779e671a7f26ce92' AND c.id_estado_cuenta = 4 AND uc.mail_confirmado = 1 {0}", 
+            "isWithMovements": {
+                "con" : "AND c.id_cuenta IN (SELECT DISTINCT t.BuyerAccountIdentification FROM Transactions..Transactions t WHERE t.createtimestamp BETWEEN DATEADD(MM, -9, DATEDIFF(dd, 0, GETDATE())) AND DATEADD(ss, -1, DATEADD(dd, 1, DATEDIFF(dd, 0, GETDATE())))) ORDER BY c.fecha_alta DESC",
+                "sin" : "AND c.id_cuenta NOT IN (SELECT DISTINCT t.BuyerAccountIdentification FROM Transactions..Transactions t WHERE t.BuyerAccountIdentification IS NOT NULL) AND c.id_cuenta NOT IN (SELECT DISTINCT t.LocationIdentification FROM Transactions..Transactions t WHERE t.LocationIdentification IS NOT NULL)"
+            }
+        }
+    }
+}
