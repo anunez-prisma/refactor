@@ -1,12 +1,11 @@
 {
   "projectId": "d8tu85",
+  "pageLoadTimeout": 50000,
+  "requestTimeout": 50000,
+  "defaultCommandTimeout": 50000,
+  "responseTimeout": 50000,
+  "waitForAnimations": true,
   "testFiles": "**/*.{feature,features}",
   "ignoreTestFiles": ["**/stepDefinitions/*","*.js", "*.md", "*.ts"],
-  "reporter": "mochawesome",
-  "reporterOptions": {
-    "reportFilename": "test-report",
-    "overwrite": false
-  },
-  "chromeWebSecurity": false,
-  "pageLoadTimeout": 80000
+  "chromeWebSecurity": false
 }

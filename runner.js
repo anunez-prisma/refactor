@@ -96,49 +96,22 @@ if(args.cypress == 'open'){
         "reporterOptions": {
             "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
             "mochawesomeReporterOptions": {
-                "reportDir": 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
-                "quite": true,
-                "overwrite": false,
-                "html": true,
-                "json": true
-            },
-            "reportportalAgentJsCypressReporterOptions": {
-                "reporter": "@reportportal/agent-js-cypress",
-                "reporterOptions": {
-                    "endpoint": "http://192.168.76.114:8080",
-                    "token": "0111d481-b833-43a9-868d-9763098bf314",
-                    "launch": "superadmin_TEST_EXAMPLE",
-                    "project": "cypress_poc",
-                    "description": "Ejemplo de report portal con cypress"
-                },
-                "reportHooks": true,
-                "autoMerge": true,
-                "attributes": [
-                {
-                    "key": "attributeKey",
-                    "value": "attrbiuteValue"
-                },
-                {
-                    "value": "secondAttrbiuteValue"
-                }
-                ],
-                "integrationFolder": "cypress/integration",
-                "screenshotsFolder": 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + 'screenshots',
-                "fixturesFolder": "cypress/fixtures",
-                "supportFile": "cypress/support/index.js",
-                "pluginsFile": "cypress/plugins/index.js"
-            }
-        }
-        /*reportOptions = {
-            reporter: 'mochawesome',
-            reporterOptions: {
                 reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
                 overwrite: false,
                 html: true,
                 json: true
+            },
+            "reportportalAgentJsCypressReporterOptions": {
+            "endpoint": "http://192.168.76.114:8080/api/v1",
+            "token": "0111d481-b833-43a9-868d-9763098bf314",
+            "launch": "superadmin_TEST_EXAMPLE",
+            "project": "cypress_poc",
+            "timeout": 30000,
+            "description": "cypress_poc",
+            "reportHooks": false,
+            "autoMerge": true
             }
-        }*/
-
+        }
     }).then(result => {
     
         // generate a unified report, once Cypress test run is done
