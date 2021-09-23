@@ -18,28 +18,28 @@ class HomePage {
   }
 
   validateAvailableBalance(balace){
-    cy.validateCurrency(elements.HOMEPAGE.SALDO_DISPONIBLE, balace);
+    cy.validateCurrency(elements.HOMEPAGE.AVAILABLE_BALANCE, balace);
   }
 
   validateRevisionBalance(revisionBalance){
-    cy.validateCurrency(elements.HOMEPAGE.SALDO_EN_REVISION, revisionBalance);
+    cy.validateCurrency(elements.HOMEPAGE.BALANCE_IN_REVISION, revisionBalance);
   }
 
   validateBalanceToBeAvailable(balanceToBeAvailable){
-    cy.validateCurrency(elements.HOMEPAGE.SALDO_A_DISPONIBILIZAR, balanceToBeAvailable.toFixed(2));
+    cy.validateCurrency(elements.HOMEPAGE.BALANCE_TO_BE_AVAILABLE, balanceToBeAvailable.toFixed(2));
   }
 
   validateBalanceModule(){
-    cy.existElement(elements.HOMEPAGE.ENVIAR_DINERO_BUTTOM);
-    cy.existElement(elements.HOMEPAGE.ENVIAR_DINERO_LABEL);
-    cy.existElement(elements.HOMEPAGE.RETIRAR_DINERO_BUTTOM);
-    cy.existElement(elements.HOMEPAGE.RETIRAR_DINERO_LABEL);
-    cy.existElement(elements.HOMEPAGE.SALDO_A_DISPONIBILIZAR);
-    cy.existElement(elements.HOMEPAGE.SALDO_A_DISPONIBILIZAR_LABEL);
-    cy.existElement(elements.HOMEPAGE.SALDO_DISPONIBLE);
-    cy.existElement(elements.HOMEPAGE.SALDO_DISPONIBLE_LABEL);
-    cy.existElement(elements.HOMEPAGE.SALDO_EN_REVISION);
-    cy.existElement(elements.HOMEPAGE.SALDO_EN_REVISION_LABEL);
+    cy.existElement(elements.HOMEPAGE.SET_MONEY_BUTTOM);
+    cy.existElement(elements.HOMEPAGE.SET_MONEY_LABEL);
+    cy.existElement(elements.HOMEPAGE.GET_MONEY_BUTTOM);
+    cy.existElement(elements.HOMEPAGE.GET_MONEY_LABEL);
+    cy.existElement(elements.HOMEPAGE.BALANCE_TO_BE_AVAILABLE);
+    cy.existElement(elements.HOMEPAGE.BALANCE_TO_BE_AVAILABLE_LABEL);
+    cy.existElement(elements.HOMEPAGE.AVAILABLE_BALANCE);
+    cy.existElement(elements.HOMEPAGE.AVAILABLE_BALANCE_LABEL);
+    cy.existElement(elements.HOMEPAGE.BALANCE_IN_REVISION);
+    cy.existElement(elements.HOMEPAGE.BALANCE_IN_REVISION_LABEL);
   }
 
   validateMovementsContainer(){

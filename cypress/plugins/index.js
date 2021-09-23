@@ -59,6 +59,17 @@ registerReportPortalPlugin(on, config);
   const env = config.env.configFile || "qa";
   on('task', sqlServer.loadDBPlugin(dataBaseEnv.get("db", env)));
 
+  on('before:browser:launch', (browser, launchOptions) => {
+
+    if (browser.name === 'chrome') {
+      launchOptions.args.push('--auto-open-devtools-for-tabs')
+      launchOptions.args.push('--cypress-remote-debugging-port=9222')
+      // whatever you return here becomes the new args
+      return launchOptions
+    }
+
+  })
+
   return getConfigurationByFile(env);
 };
 

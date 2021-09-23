@@ -1,6 +1,0 @@
-{
-    "ENDPOINT_ACCESS_TOKEN": "/v1/oauth/accesstoken?grant_type=",
-    "ENDPOINT_QR_ADQUIRENTE_REDBEE": "/qr",
-    "ENDPOINT_QR_ADQUIRENTE_DETAIL": "/v1/acquiring_qr_services/details",
-    "ENDPOINT_PAYMENT": "/v1/decidir_qr_services/pos/payments"
-}

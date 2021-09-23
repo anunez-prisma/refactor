@@ -1,20 +1,17 @@
 import { POST } from '../../../../../fixtures/utils/http.json';
 import { OK, CREATE_SUCCES } from '../../../../../fixtures/utils/StatusCode.json';
-import { ENDPOINT_QR_ADQUIRENTE_REDBEE, 
-        ENDPOINT_QR_ADQUIRENTE_DETAIL,
-        ENDPOINT_PAYMENT} from '../../../../../fixtures/endpoints.json'
 
 const bodyRedBee = require('../../../../../fixtures/forms/qrAdquirenteRedBee.json');
 const commonHeader = require('../../../../../fixtures/forms/commons/commonHeader.json');
 
-
+const ENDPOINT = Cypress.env('endpoint');
   
   When(
     'Se genera un QR Adquirente en RedBee',
     () => {
       cy.request({
         method: POST,
-        url: Cypress.env('qrAdquirenteRedBeeUrl') + ENDPOINT_QR_ADQUIRENTE_REDBEE,
+        url: Cypress.env('qrAdquirenteRedBeeUrl') + ENDPOINT.qr_adquirente_redbee,
         headers: {
           ...commonHeader
         },
@@ -38,7 +35,7 @@ const commonHeader = require('../../../../../fixtures/forms/commons/commonHeader
           cy.log($token_data.body.token_type + ' ' + $token_data.body.access_token);
           cy.request({
             method: POST,
-            url: Cypress.env('apigeeServerHost') + ENDPOINT_QR_ADQUIRENTE_DETAIL,
+            url: Cypress.env('apigeeServerHost') + ENDPOINT.qr_adquirente_detail,
             headers: {
               ...commonHeader,
               'Cuit-Owner': info.cuit,
@@ -65,7 +62,7 @@ const commonHeader = require('../../../../../fixtures/forms/commons/commonHeader
           cy.log(JSON.stringify($get_qr_parsed.body));
           cy.request({
             method: POST,
-            url: Cypress.env('apigeeServerHost') + ENDPOINT_PAYMENT,
+            url: Cypress.env('apigeeServerHost') + ENDPOINT.payment,
             headers: {
               ...commonHeader,
               'Cuit-Owner': info.cuit,

@@ -5,6 +5,12 @@
     "urlApiLogin": "http://apis-internal-tp-qa.prismamp.com/oauth2/private/v1/token",
     "apigeeServerHost": "https://api-qa.prismamediosdepago.com",
     "qrAdquirenteRedBeeUrl": "http://qr-generator.prisma.redbee.io",
+    "endpoint": {
+      "access_token": "/v1/oauth/accesstoken?grant_type=",
+      "qr_adquirente_redbee": "/qr",
+      "qr_adquirente_detail": "/v1/acquiring_qr_services/details",
+      "payment": "/v1/decidir_qr_services/pos/payments"
+    },
     "db": {
       "userName": "Usr_Pentaho",
       "password": "@Usr_Pentaho@",

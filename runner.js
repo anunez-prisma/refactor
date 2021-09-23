@@ -68,16 +68,6 @@ const finalReport = {
     reportPageTitle: 'Run-Report'
 }
 
-let reportOptions;                                                                                        ;
-
-console.log(args.reporter);
-
-if(args.reporter == 'reportPortal'){
-
-}else{
-    
-}
-
 //Cypree Module API
 if(args.cypress == 'open'){
     cypress.open({

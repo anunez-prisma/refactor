@@ -25,6 +25,7 @@
     "nonGlobalStepDefinitions": true
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "cypress-multi-reporters": "^1.5.0",
     "cypress-sql-server": "^1.0.0",
     "moment": "^2.29.1",

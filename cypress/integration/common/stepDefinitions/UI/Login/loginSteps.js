@@ -17,6 +17,7 @@ And(
   'El usuario se loguea al nuevo portal con la contraseña {string}',
   (password) => {
     cy.get('@dataUser').then(($dataUser) => {
+      debugger
       loginPage.typeInEmailTxtBox($dataUser[0]);
       loginPage.typeInPasswordTxtBox(password);
       loginPage.clickOnLoginBtn();
