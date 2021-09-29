@@ -2,21 +2,21 @@
 
 ## Resumen
 
-Este proyecto contiene los escenarios de pruebas para los WS de PRISMA. Tiene 
-como objetivo ofrecer una forma sencilla de realizar pruebas automatizadas que 
-requieran todo el sistema en funcionamiento y comprueba sus requisitos a fondo.
+Este proyecto contiene el template de proyecto inicial del framework Cypress, sobre el que deben basarse las pruebas automatizadas de Frontend (principalmente) y backend de la vertical Wallet. Tiene como objetivo ofrecer una forma sencilla de realizar pruebas automatizadas que requieran todo el sistema en funcionamiento y comprueba sus requisitos a fondo.
 
 ## Requisitos
 
-Recomendamos tener instalado:
+Es necesario tener instalado:
 
 * [NodeJS] (https://nodejs.org/en/download/) ya que este es la plataforma del proyecto.
 
 ## IDE
 
+En el caso de Cypress se pueden utilizar otros IDE como “IntelliJ”, pero detectamos que cuenta con algunas limitaciones en su uso, por lo que recomendamos utilizar Visual Studio Code:
+
 * [Descargar Visual Studio Code] (https://code.visualstudio.com/download)
 
-## Plugins
+## Plugins requeridos para el IDE VSCode
 
 * [Cypress Helper] (https://marketplace.visualstudio.com/items?itemName=Shelex.vscode-cy-helper)
 * [Run Cypress] (https://marketplace.visualstudio.com/items?itemName=coreylight.run-cy)
@@ -37,16 +37,30 @@ siguiente comando:
 
 Ahora, realizados todos los pasos anteriores, podemos ejecutar de la siguiente forma:
 
-`node runner.js --cypress {run/open} --env configFile={ambiente},TAGS='@{tags}' {--browser chrome/firefox/electron}`
+`node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='@{tags}' {--browser chrome/firefox/electron}`
 
-Por ejemplo:
+- ### Cypress Option
+
+| Comando | Descripción                                                   |
+| :-----: | :------------------------------------------------------------ |
+| run     | Ejecutas la pruebas en backgroun                              |
+| open    | Abre la interfaz de cypress para pruebas de script y debugger |
+
+- ### Ambiente
+
+| Comando     | Archivo de configuración | Descripción                    |
+| :---------: | :----------------------- | :----------------------------- |
+| qa          | [qa.config.json] (cypress/config/qa.config.json)   | Para ambiente de pruebas QA    |
+| dev         | dev.config.json          | Para pruebas locales           |
+| pros        | prod.config.json         | Para pruebas en Producción     |
+
+Nota: Los archivos de configuración se encuentran en la carpeta de `cypress/config`
+
+- El navegador de `chrome` es el unico que puede usar la opción de debugger junto con la opción de `open`
+
+Por ejemplo, usando los datos en las tablas, podriamos tener el siguiente comando:
 
 `node runner.js --cypress run --env configFile=dev,TAGS='@full' --browser firefox`
-`...`
-
-- Seleccionar `run` para ejecutar en background o `open` para abrir la interfaz de cypress
-- El ambiente por defaul es `qa` y por lo tanto se usara el archivo `qa.config.json` en la carpeta de `cypress/config`
-- El navegador de `chrome` es el unico que puede usar la opción de debugger junto con la opción de `open`
 
 Se puede generar el reporte unificado de las pruebas al finalizar la ejecución el cual puedes ver en la sección de `reports/{ambiente}`.
 
