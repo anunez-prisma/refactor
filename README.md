@@ -50,7 +50,7 @@ $ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='{T
 | run     | Ejecutas la pruebas en background                             |
 | open    | Abre la interfaz de cypress para pruebas de script y debugger |
 
-### Ambiente
+### Ambiente <a name="ambiente"></a>
 
 
 | Comando     | Archivo de configuración                            | Descripción                    |
@@ -61,7 +61,7 @@ $ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='{T
 
 Nota: Los archivos de configuración se encuentran en la carpeta de `cypress/config`.
    
-### Tags
+### Tags <a name="tags"></a>
 
 | Comando | Ejemplo                         | Descripción                                                                       |
 | :-----: | :-----------------------------: | :-------------------------------------------------------------------------------- |
@@ -71,14 +71,14 @@ Nota: Los archivos de configuración se encuentran en la carpeta de `cypress/con
 
 Nota: Para mas información consultar las buenas practicas de taggeo en el siguiente link [ver]()
 
-### Report Portal Option
+### Report Portal Option <a name="report-portal-option"></a>
 
 | Comando | Descripción                                                   |
 | :-----: | :------------------------------------------------------------ |
 | true    | Ejecutas la pruebas con registro en el portal configurado de Report Portal. El reporte de Mochawesome si se genera |
 | false   | Ejecutas la pruebas sin registro en el portal configurado de Report Portal. El reporte de Mochawesome si se genera |
 
-### Browser
+### Browser <a name="browser"></a>
 
 | Comando   | Descripción                                                                                                        |
 | :-------: | :----------------------------------------------------------------------------------------------------------------- |
@@ -224,7 +224,7 @@ cy.sqlServer(
 ### Aqui el query terminaria siendo 'Select name FROM user WEHRE id = 2 AND type = A'
 
 ```
-## Report Portal
+## Report Portal <a name="report-portal"></a>
 
 Para poder general una ejecución en Report Portal es necesario tener la opción de `reportPortal=true` [ver](#report-portal-option).
 
