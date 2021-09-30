@@ -42,7 +42,7 @@ Ahora, realizados todos los pasos anteriores, podemos ejecutar de la siguiente f
 $ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='{Tags}'{Report Portal Option} {Browser}`
 ```
 
-### Cypress Option <a name="section"></a>
+### Cypress Option <a name="Cypress Option"></a>
 
 
 | Comando | Descripción                                                   |
@@ -275,4 +275,4 @@ La configuración esta en el archivo [runner.js](runner.js) y debe ser la siguie
 
 Nota 1: El reporte de Mochawesome también se generara cuando se selecione la opcion de [Report Portal](#report-portal)
 
-Nota 2: Solo se generan reportes cuando seleccionas la opción `run` de [Cypress Option](#section)
+Nota 2: Solo se generan reportes cuando seleccionas la opción `run` de [Cypress Option](#cypress-option)
