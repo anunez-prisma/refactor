@@ -1,6 +1,6 @@
-import LoginPage from '../../../../pages/LoginPage/LoginPage';
-import HomePage from '../../../../pages/HomePage/HomePage';
-import UserDao from '../../../../dao/user/userDao';
+import LoginPage from '../../../../pages/loginpage/LoginPage';
+import HomePage from '../../../../pages/homepage/HomePage';
+import UserDao from '../../../../dao/user/UserDao';
 
 const loginPage = new LoginPage();
 const headerPage = new HomePage();

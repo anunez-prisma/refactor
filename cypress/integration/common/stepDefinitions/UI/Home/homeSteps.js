@@ -1,5 +1,5 @@
-import HomePage from '../../../../pages/HomePage/HomePage';
-import UserDao from '../../../../dao/user/userDao';
+import HomePage from '../../../../pages/homepage/HomePage';
+import UserDao from '../../../../dao/user/UserDao';
 
 const TypeUser = require("../../../../../fixtures/utils/typeUser.json");
 const userDao = new UserDao();

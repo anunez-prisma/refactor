@@ -69,7 +69,7 @@ Nota: Los archivos de configuración se encuentran en la carpeta de `cypress/con
 | and     | TAGS='@smokeTest and @login'    | Se ejecutan los scripts con tag smoTtest y los que tengan el tag login            |
 | or      | TAGS='@login1 or @login2'       | Se ejecutan scrips que tengan el tag login1 o el tag login2                       |
 
-Nota: Para mas información consultar las buenas practicas de taggeo en el siguiente link [ver]()
+Nota: Para mas información consultar las buenas practicas de taggeo en el siguiente link [ver](https://confluence.prismamp.com/display/TPAUTFRAM/Buenas+practicas+Cypress+Framework#BuenaspracticasCypressFramework-Formatodelostagsb%C3%A1sicosdefeatures:)
 
 ### Report Portal Option <a name="report-portal-option"></a>
 
@@ -106,13 +106,13 @@ $ node runner.js --cypress run --env configFile=dev,TAGS='@full',reportPortal=fa
 │   │       └── commons # Estructuras comunes usadas en el proyecto
 │   ├── integration
 │   │   ├── common
-│   │   │   └── stepDefinitions # definicion de los steps de gherkin
-│   │   |       ├── API # Para los steps de backend
-|   │   |       └── UI  # Para los steps del Website
+│   │   │   └── stepdefinitions # definicion de los steps de gherkin
+│   │   |       ├── api # Para los steps de backend
+|   │   |       └── ui  # Para los steps del Website
 │   │   ├── dao # Sección de DAO´s para el proyecto
 │   │   ├── features
-│   │   |   ├── API # Para los steps de backend
-|   │   |   └── UI  # Para los steps del Website
+│   │   |   ├── api # Para los steps de backend
+|   │   |   └── ui  # Para los steps del Website
 │   │   └── pages # Aqui se generan los Page Objects con los componentes de la pantalla
 │   ├── plugins # Librerias y plugins de NodeJS
 │   │   ├── dataBaseEnv.js # Se comsume la configuración de la BD por ambiente seleccionado
