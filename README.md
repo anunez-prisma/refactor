@@ -39,16 +39,19 @@ $ npm install
 
 Ahora, realizados todos los pasos anteriores, podemos ejecutar de la siguiente forma:
 ```
-    $ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='@{tags}' {--browser chrome/firefox/electron}`
+$ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='{Tags}'{Report Portal Option} {Browser}`
 ```
+
 ### Cypress Option
+
 
 | Comando | Descripción                                                   |
 | :-----: | :------------------------------------------------------------ |
-| run     | Ejecutas la pruebas en backgroun                              |
+| run     | Ejecutas la pruebas en background                             |
 | open    | Abre la interfaz de cypress para pruebas de script y debugger |
 
 ### Ambiente
+
 
 | Comando     | Archivo de configuración                            | Descripción                    |
 | :---------: | :-------------------------------------------------- | :----------------------------- |
@@ -68,6 +71,13 @@ Nota: Los archivos de configuración se encuentran en la carpeta de `cypress/con
 
 Nota: Para mas información consultar las buenas practicas de taggeo en el siguiente link [ver]()
 
+### Report Portal Option
+
+| Comando | Descripción                                                   |
+| :-----: | :------------------------------------------------------------ |
+| true    | Ejecutas la pruebas con registro en el portal configurado de Report Portal. El reporte de Mochawesome si se genera |
+| false   | Ejecutas la pruebas sin registro en el portal configurado de Report Portal. El reporte de Mochawesome si se genera |
+
 ### Browser
 
 | Comando   | Descripción                                                                                                        |
@@ -76,13 +86,12 @@ Nota: Para mas información consultar las buenas practicas de taggeo en el sigui
 | firefox   | Ejecuta las pruebas en Firefox                                                                                     |
 | electron  | Ejecuta las pruebas en Electron. Esta opción es el navegador por default en caso de no poner el comando `-browser` |
 
-Nota: Cuando se ejecuta `open` para Cypress option no es necesario especificar el navegador.
+Nota: Cuando se ejecuta `open` para [Cypress Option](#cypress-option) no es necesario especificar el navegador.
 
 Por ejemplo, usando los datos en las tablas, podriamos tener el siguiente comando:
 ```
-$ node runner.js --cypress run --env configFile=dev,TAGS='@full' --browser firefox`
+$ node runner.js --cypress run --env configFile=dev,TAGS='@full',reportPortal=false --browser firefox`
 ```
-Se puede generar el reporte unificado de las pruebas al finalizar la ejecución el cual puedes ver en la sección de `reports/{ambiente}`.
 
 ## Estructura del proyecto
 
@@ -119,4 +128,151 @@ Se puede generar el reporte unificado de las pruebas al finalizar la ejecución 
 ```
 
 ## Base de datos
-Las credenciales e información de base de datos se encuentra en los archivos de configuración por ambien([ver](##Ambiente))
+Las credenciales e información de base de datos se encuentra en los archivos de configuración por ambiente([ver](#ambiente)) y debe contener la siguiente información:
+
+```
+"db": {
+    "userName": usuario de la base de datos,
+    "password": password,
+    "server": hostname de la base de datos,
+    "port": puerto de la base de datos,
+    "options": {
+        "database": base de datos en la cual se trabajara,
+        "encrypt": por defecto es true,
+        "rowCollectionOnRequestCompletion" : por defecto es true
+    }
+}
+```
+
+Los queries se agregan en el siguiente archivo:
+
+- [queryDao.json](cypress/fixtures/queryDao.json)
+
+Para agregar un query existen dos maneras descritas a continuación:
+
+### Directa
+
+Se agrega una estructura como:
+
+```
+{
+    "UserStatement" : {                                                      # Se anidan consultas para pedir información sobre el usaurio
+        "getUsers" : "SELECT * FROM Usuario_Cuenta",                                                # Se declara el query sin parametros
+        "getUsersByEmail" : "SELECT * FROM Usuario_Cuenta c WHERE email = '{0}'",                   # Se declara el query con 1 parametro
+        "getUsersByEmailAndId": "SELECT * FROM Usuario_Cuenta c WHERE email = '{0}', AND id = {1}"  # Se declara el query con 2 parametros
+        ...
+    }
+    ...
+}
+```
+
+
+Usandolo en código tendrias que usar algo como esto:
+
+```
+...
+cy.sqlServer(UserStatement.getUsers).as('userData');                                        # Se declara el query sin parametros
+...
+cy.sqlServer(format(UserStatement.getUsersByEmail, 'email')).as('userData');                # Se declara el query con 1 parametro
+...
+cy.sqlServer(format(UserStatement.getUsersByEmailAndId, 'email', 'id')).as('userData');     # Se declara el query con 2 parametros
+...
+```
+
+### Inirecta
+
+Se agrega una estructura como:
+
+```
+{
+    "UserStatement" : {                                                      # Se anidan consultas para pedir información sobre el usaurio
+        "userInfoByConditional" : {
+            "query" : "Select name FROM user {valor_condicionA} {valor_condicionB}",          # La intención es concatenar las opciones que completen el query
+            "condicionA" : {
+                "opcion1" : "WHERE id = 1",
+                "opcion2" : "WHERE id = 2"
+            },
+            "condicionB" : {
+                "opcion1" : "AND type = A",
+                "opcion2" : "AND type = B"
+            }
+        }
+        ...
+    }
+    ...
+}
+```
+
+Usandolo en código tendrias que usar algo como esto:
+
+```
+cy.sqlServer(
+            format(UserStatement.userInfoByConditional.query, 
+                    UserStatement.userInfoByConditional.condicionA[opcion1], 
+                    UserStatement.userInfoByConditional.condicionB[opcion2])).as('dataUser');
+
+### Aqui el query terminaria siendo 'Select name FROM user WEHRE id = 1 AND type = B'
+
+```
+
+```
+cy.sqlServer(
+            format(UserStatement.userInfoByConditional.query, 
+                    UserStatement.userInfoByConditional.condicionA[opcion2], 
+                    UserStatement.userInfoByConditional.condicionB[opcion1])).as('dataUser');
+                    
+### Aqui el query terminaria siendo 'Select name FROM user WEHRE id = 2 AND type = A'
+
+```
+## Report Portal
+
+Para poder general una ejecución en Report Portal es necesario tener la opción de `reportPortal=true` [ver](#report-portal-option).
+
+La configuración esta en el archivo [runner.js](runner.js) y debe ser la siguiente:
+
+```
+{
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
+        "mochawesomeReporterOptions": {
+            ## Opciones de reporte para mochawesome
+        },
+        "reportportalAgentJsCypressReporterOptions": {
+        "endpoint": "{hostname}/api/v1",
+        "token": "00000000-0000-0000-0000-000000000000",
+        "launch": "TEST_EXAMPLE",
+        "project": "project1",
+        "reportHooks": false,
+        "autoMerge": true
+        }
+    }
+}
+```
+
+Nota 1: Para mas info [ver](https://github.com/reportportal/agent-js-cypress)
+
+Nota 2: Solo se generan reportes cuando seleccionas la opción `run` de [Cypress Option](#cypress-option)
+
+## Mochawesome
+
+Se puede generar el reporte unificado de las pruebas al finalizar la ejecución el cual puedes ver en la sección de `reports/{ambiente}/{fecha de ejecución}/Run-Report.html`.
+
+La configuración esta en el archivo [runner.js](runner.js) y debe ser la siguiente:
+
+```
+{
+    reporter: 'mochawesome',
+    reporterOptions: {
+        reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
+        overwrite: false,
+        html: true,
+        json: true
+    }        
+}
+```
+
+
+Nota 1: El reporte de Mochawesome también se generara cuando se selecione la opcion de [Report Portal](#report-portal)
+
+Nota 2: Solo se generan reportes cuando seleccionas la opción `run` de [Cypress Option](#cypress-option)

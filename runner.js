@@ -13,10 +13,51 @@ const args = require('minimist')(process.argv.slice(2));
 //get environment from args..
 const environment = getEnvironment(args);
 
+const reportOptions = getReportOption(args);
+
+
+function getReportOption(args){
+    const getEnv = args.env.split(",");
+    const envProperty = getEnv[2].split("=");
+    if(envProperty[0] === 'reportPortal' && envProperty[1] === 'true'){
+        return {
+            "reporter": "cypress-multi-reporters",
+            "reporterOptions": {
+                "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
+                "mochawesomeReporterOptions": {
+                    reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
+                    overwrite: false,
+                    html: true,
+                    json: true
+                },
+                "reportportalAgentJsCypressReporterOptions": {
+                "endpoint": "http://192.168.76.114:8080/api/v1",
+                "token": "0111d481-b833-43a9-868d-9763098bf314",
+                "launch": "superadmin_TEST_EXAMPLE",
+                "project": "cypress_poc",
+                "timeout": 30000,
+                "description": "cypress_poc",
+                "reportHooks": false,
+                "autoMerge": true
+                }
+            }
+        }
+    }else{
+        return {
+            reporter: 'mochawesome',
+            reporterOptions: {
+                reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
+                overwrite: false,
+                html: true,
+                json: true
+            }        
+        }
+    }
+}
+
 //**********Agregado para determinar ambientes en los reportes de ejecucion**********
 // identify an environment; default is "qa"
 function getEnvironment(args){
-
  let environment;
 
   if(args.env){
@@ -27,11 +68,8 @@ function getEnvironment(args){
     }
 
   const getEnv = args.env.split(",");
-  console.log(args.cypress)
   getEnv.map((curr, index) => {
-
     const envProperty = curr.split("=");
-
     if(envProperty[0] === 'configFile'){
         environment = envProperty[1];
     }
@@ -82,26 +120,7 @@ if(args.cypress == 'open'){
             video: true,
             videosFolder: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/videos'
         },
-        "reporter": "cypress-multi-reporters",
-        "reporterOptions": {
-            "reporterEnabled": ["@reportportal/agent-js-cypress", "mochawesome"],
-            "mochawesomeReporterOptions": {
-                reportDir: 'reports/' + environment + "/" + "Test Run - " + currRunTimestamp + '/mochawesome-report',
-                overwrite: false,
-                html: true,
-                json: true
-            },
-            "reportportalAgentJsCypressReporterOptions": {
-            "endpoint": "http://192.168.76.114:8080/api/v1",
-            "token": "0111d481-b833-43a9-868d-9763098bf314",
-            "launch": "superadmin_TEST_EXAMPLE",
-            "project": "cypress_poc",
-            "timeout": 30000,
-            "description": "cypress_poc",
-            "reportHooks": false,
-            "autoMerge": true
-            }
-        }
+        ...reportOptions
     }).then(result => {
     
         // generate a unified report, once Cypress test run is done
