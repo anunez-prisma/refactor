@@ -42,7 +42,7 @@ Ahora, realizados todos los pasos anteriores, podemos ejecutar de la siguiente f
 $ node runner.js --cypress {Cypress Option} --env configFile={Ambiente},TAGS='{Tags}'{Report Portal Option} {Browser}`
 ```
 
-### Cypress Option <a name="Cypress Option"></a>
+### Cypress Option <a name="cypress-option"></a>
 
 
 | Comando | Descripción                                                   |
