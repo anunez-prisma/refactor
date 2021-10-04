@@ -9,3 +9,4 @@ results/
 /cypress/videos/
 /cypress/screenshots/
 /.idea/
+/.vscode/
